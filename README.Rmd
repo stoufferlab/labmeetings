@@ -17,5 +17,5 @@ The csv must contain people names in first column & dates in first row. Values 0
 ### April - August 2017
 
 ```{bash}
-Rscript fixtures.R --input=doodle_results_Feb2017.csv --seed=2017
+Rscript fixtures.R --input=doodle_results_Feb2017.csv --output=fixtures_result2017A.csv --seed=2017 --date_format="%B %a %d"
 ```
