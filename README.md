@@ -1,40 +1,29 @@
-# Readme
+# Scheduling the Stouffer-Tylianakis meetings
 Fernando Cagua  
 
-## Usage
+Managing lab meetings can be a pain in the ass. This should help make it all easier. 
 
-`Rscript fixtures.R --input=#input_csv --seed=#random_seed`
+### Usage
 
-The csv must contain people names in first column & dates in first row. Values 0 for not available, 0.5 for available but not preferred, and 1 for preferred.
+1. Create a doodle poll and allow answers to be if-needed-be
+2. When everyone answers the poll download the excel file with the results
+3. Manually convert the file to a csv and edit it so that yes=1, if_needed_be=0.5, and no=0. Make sure that the first row has dates as the column name
+4. Run `fixtures.R` to randomise the meetings
+5. Run `export_icalendar.py` to create a calendar file that can be be easily imported into Google Calendar
 
-## Fixtures
+### Script arguments
 
-### April - August 2017
+The R script should have the following arguments: --input, --output, --seed, and --date_format (in a strmptime compliant string). Run `fixtures.R --help` for more details.
+
+The python script should have the input file, the output file and the meeting time as arguments in that order. Time should be in `%H:%M:%S` format.
+
+### Fixtures
+
+#### April - August 2017
 
 
 ```bash
-Rscript fixtures.R --input=doodle_results_Feb2017.csv --seed=2017
-```
+Rscript fixtures.R --input=doodle_results_Feb2017.csv --output=fixtures_result2017A.csv --seed=2017 --date_format="%B %a %d"
 
-```
-## Warning message:
-## Not enough people to fill all the meetings 
-## Warning message:
-## Only one person in last meeting 
-##      person         date
-## 1   Melissa April.Thu.13
-## 2     Jason April.Thu.13
-## 3    Bernat April.Thu.27
-## 4     Paula April.Thu.27
-## 5      Zane    Aug.Thu.3
-## 6    Sophie  July.Thu.20
-## 7      Lupe  July.Thu.20
-## 8   Warwick   July.Thu.6
-## 9    Rogini   July.Thu.6
-## 10     Lily  June.Thu.22
-## 11   Daniel  June.Thu.22
-## 12 Matthias   June.Thu.8
-## 13    Carli   June.Thu.8
-## 14 Fernando   May.Thu.11
-## 15  Johanna   May.Thu.11
+python export_icalendar.py fixtures_result2017A.csv meetings2017A.ics '14:00:00'
 ```
